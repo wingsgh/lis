@@ -1,0 +1,39 @@
+<input type="text" ng-model="search" class="search-query" placeholder="搜索">
+<table class="table ">
+  <thead>
+  <tr>
+    <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>
+    <th></th>
+    <th>编号</th>
+    <th>纳税人</th>
+    <th>应税项目</th>
+    <th>计税依据</th>
+    <th>应纳税额</th>
+    <th>地址</th>
+    <th>发生日期</th>
+    <th>申报日期</th>
+    <!-- <th>说明</th> -->
+    <th>付款方</th>
+    <th>状态</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="decl in decls | filter:search | orderBy:'sn'">
+    <td>
+      <a href="#/edit/{{decl.id}}"><i class="icon-pencil"></i></a>
+    </td>
+    <td><a href="#/print/{{decl.id}}"><i class="icon-print"></i></a></td>
+    <td>{{decl.sn}}</td>
+    <td>{{decl.taxpayer}}</td>
+    <td>{{decl.tax_object_class}}</td>
+    <td>{{decl.tax_basis}}</td>
+    <td>{{decl.taxes}}</td>
+    <td>{{decl.occur_region}}</td>
+    <td>{{decl.occur_date | date:'yyyy-MM-dd'}}</td>
+    <td>{{decl.decl_date | date:'yyyy-MM-dd'}}</td>
+    <!-- <td>{{decl.description}}</td> -->
+    <td>{{decl.employer}}</td>
+    <td>{{decl.status}}</td>
+  </tr>
+  </tbody>
+</table>

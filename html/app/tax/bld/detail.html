@@ -1,0 +1,103 @@
+<div class="row-fluid">
+  <div class="span6">
+
+    <form name="myForm" class="form-horizontal">
+      <div class="control-group" ng-class="{error: myForm.name.$invalid}">
+        <label class="control-label">工程名称</label>
+        <div class="controls">
+          <input type="text" ng-model="bld.name" />
+        </div>
+      </div>
+
+      <div class="control-group" ng-class="{error: myForm.name.$invalid}">
+        <label class="control-label">建设单位</label>
+        <div class="controls">
+          <input type="text" ng-model="bld.owner"/>
+          
+        </div>
+      </div>
+
+      <div class="control-group" ng-class="{error: myForm.name.$invalid}">
+        <label class="control-label">承建单位</label>
+        <div class="controls">
+          <input type="text" name="contractor" ng-model="bld.contractor"/>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">地址</label>
+        <div class="controls">
+          <select ng-model="bld.region" ng-options="i for i in regions"></select>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">开工日期</label>
+        <div class="controls">
+          <input type="text"  ng-model="bld.begin_date" />
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">预算金额</label>
+        <div class="controls">
+          <input type="number" id="bld_date" ng-model="bld.budget" />
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">峻工日期</label>
+        <div class="controls">
+          <input type="text" id="bld_date" ng-model="bld.finish_date" />
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">决算金额</label>
+        <div class="controls">
+          <input type="number" id="bld_date" ng-model="bld.account" />
+        </div>
+      </div>
+
+      <br>
+      <div class="control-group">
+        <div class="controls">
+          <a href="#/bld" class="btn">取消</a>
+          <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
+                  class="btn btn-primary">保存</button>
+        </div>
+        
+      </div>
+
+    </form>
+  </div>
+
+  <div class="span6">
+    <input type="text" ng-model="search" class="search-query" placeholder="搜索">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>发生日期</th>
+          <th>计税依据</th>
+          <th>应纳税额</th>
+          <th>状态</th>
+          <th>纳税日期</th>
+          <th>税票号码</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="bldDecl in bldDecls | filter:search | orderBy:'sn'">
+          <td>{{bldDecl.occur_date}}</td>
+          <td>{{bldDecl.tax_basis}}</td>
+          <td>{{bldDecl.taxes}}</td>
+          <td>{{bldDecl.status}}</td>
+          <td>{{bldDecl.pay_date}}</td>
+          <td>{{bldDecl.tax_certificate_sn}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr><td>合计</td><td>123</td><td>456</td><td></td><td></td><td></td></tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

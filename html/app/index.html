@@ -1,0 +1,77 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="styles/main.css">
+	
+	<link rel="stylesheet" href="bower_components/bootstrap/docs/assets/css/bootstrap.css">
+	
+
+	    
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <!-- <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> -->
+            <!--    <span class="icon-bar"></span> -->
+            <!--    <span class="icon-bar"></span> -->
+            <!--    <span class="icon-bar"></span> -->
+            <!--  </button> -->
+            <a class="brand" href="#">威信县地方税务局</a>
+            <div class="nav-collapse collapse">
+              <p class="navbar-text pull-right">
+                <a href="#" class="navbar-link">Username</a>
+              </p>
+              <ul class="nav">
+                <!-- <li class="active"><a href="#">Home</a></li> -->
+                <!-- <li><a href="#about">About</a></li> -->
+                <!-- <li><a href="#contact">Contact</a></li> -->
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span2">
+            <div class="well sidebar-nav">
+              <ul class="nav nav-list">
+                <li><a href="#/list">纳税申报</a></li>
+                <li><a href="#/bld">税源管理－建筑业</a></li>
+              </ul>
+            </div><!--/.well -->
+          </div><!--/span-->
+          <div class="span10 well">
+            <div ng-view></div>
+          </div>
+        </div>
+      </div>
+
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+	<script src="bower_components/angularjs-bower/angular.min.js"></script>
+	<script src="bower_components/angularjs-bower/angular-resource.min.js"></script>
+	<script src="tax/decl/module.js"></script>
+
+        <!-- build:js scripts/main.js -->
+        <script src="bower_components/jquery/jquery.js"></script>
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
+	
+</body>
+</html>

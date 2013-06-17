@@ -1,0 +1,45 @@
+<div id="print">
+  <div style="text-align:right;">编号:{{decl.sn}}</div>
+  <div>
+    <h1 style="text-align:center;">纳税申报表</h1>
+  </div>
+  <div style="text-align:center;">
+    税款所属日期:&nbsp{{taxes_belong_date}}
+  </div>
+  <table id="taxpayer-info">
+    <tr><td>纳税人</td><td>{{decl.taxpayer}}</td><td>税务登记编码</td><td></td></tr>
+    <tr><td>地址</td><td></td><td>联系电话</td><td></td></tr>
+    <tr><td>开户银行</td><td></td><td>帐号</td><td></td></tr>
+  </table>
+  <table>
+    <tr><th>税种</th><th>应税项目</th><th>计税依据</th><th>税率/征收率</th><th>应纳税额(元)</th></tr>
+    <tr ng-repeat="item in decl.taxes_detail">
+      <td>{{item.tax_class}}</td>
+      <td>{{item.tax_object}}</td>
+      <td>{{item.tax_basis}}</td>
+      <td>{{item.rate}}</td>
+      <td>{{item.taxes}}</td>
+    </tr>
+    <tr><td>合计</td><td></td><td></td><td></td><td>{{total_tax}}</td>
+    </tr>
+
+  </table>
+  <table>
+    <tr><td><p>纳税人(章):</p>
+        <p>法定代表人或负责人:</p>
+        <p>办税人员:</p>
+      </td>
+      <td><p>税收管理员:</p>
+        <p>征收机关受理人:</p>
+      </td>
+    </tr>
+    <tr><td>纳税申报日期: {{decl_date}}</td>
+      <td>征收岗受理日期:</td>
+    </tr>
+  </table>
+  <table>
+    <tr><td id="note-label">备注</td>
+      <td></td>
+    </tr>
+  </table>
+</div>

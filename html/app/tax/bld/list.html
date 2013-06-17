@@ -1,0 +1,34 @@
+<input type="text" ng-model="search" class="search-query" placeholder="搜索">
+<table class="table">
+  <thead>
+  <tr>
+    <th><a href="#/bld/new"><i class="icon-plus-sign"></i></a></th>
+    <th>编号</th>
+    <th>名称 </th>
+    <th>建设单位</th>
+    <th>承建单位</th>
+    <th>地址</th>
+    <th>开工日期</th>
+    <th>预算金额</th>
+    <th>峻工日期</th>
+    <th>决算金额</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="bld in blds | filter:search | orderBy:'sn'">
+    <td>
+      <a href="#/bld/edit/{{bld.id}}"><i class="icon-pencil"></i></a>
+    </td>
+    <td>{{bld.sn}}</td>
+    <td>{{bld.name}}</td>
+    <td>{{bld.owner}}</td>
+    <td>{{bld.region}}</td>
+    <td>{{bld.contractor}}</td>
+    <td>{{bld.begin_date}}</td>
+    <td>{{bld.budget}}</td>
+    <td>{{bld.finish_date}}</td>
+    <td>{{bld.account}}</td>
+  </tr>
+  </tbody>
+</table>
+

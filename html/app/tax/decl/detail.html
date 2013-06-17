@@ -1,0 +1,82 @@
+ <form name="myForm" class="form-horizontal">
+  <div class="control-group" ng-class="{error: myForm.name.$invalid}">
+    <label class="control-label">纳税人</label>
+    <div class="controls">
+      <input type="text" ng-model="decl.taxpayer" required />
+      <span ng-show="myForm.name.$error.required" class="help-inline">*</span>
+    </div>
+  </div>
+
+  <div class="control-group" ng-class="{error: myForm.name.$invalid}">
+    <label class="control-label">应税项目</label>
+    <div class="controls">
+    <select ng-model="decl.tax_object_class"  
+            ng-options="i for i in tax_object_classes"></select> 
+    <span ng-show="myForm.name.$error.required"
+    class="help-inline">*</span>
+    </div>
+  </div>
+
+  <div class="control-group" ng-class="{error: myForm.name.$invalid}">
+    <label class="control-label">应税金额</label>
+    <div class="controls">
+    <input type="number" name="name" ng-model="decl.tax_basis"  />
+    <span ng-show="myForm.name.$error.required"
+    class="help-inline">*</span>
+    </div>
+  </div>
+
+  <div class="control-group" ng-class="{error: myForm.name.$invalid}">
+    <label class="control-label">地址</label>
+    <div class="controls">
+    <select ng-model="decl.occur_region" 
+            ng-options="i for i in regions" ></select>
+    <span ng-show="myForm.name.$error.required" class="help-inline">
+    *</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">工程</label>
+    <div class="controls">
+       <input type="text" name="bldName" ng-model="bld" />
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">发生日期</label>
+    <div class="controls">
+    <input type="text" id="occur_date" ng-model="decl.occur_date" />
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">申报日期</label>
+    <div class="controls">
+    <input type="text" id="decl_date"
+           ng-model="decl.decl_date" />
+    </div>
+  </div>
+
+   <div class="control-group">
+    <label class="control-label">说明</label>
+    <div class="controls">
+    <input type="text" id="decl_date"
+           ng-model="decl.decl_date" />
+    </div>
+  </div>
+
+
+  <br>
+  <div class="control-group">
+    <div class="controls">
+      <a href="#/" class="btn">取消</a>
+      <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
+              class="btn btn-primary">保存</button>
+      <button ng-click="destroy()"
+              ng-show="decl.id" class="btn btn-danger">删除</button>
+    </div>
+    
+  </div>
+
+</form>
