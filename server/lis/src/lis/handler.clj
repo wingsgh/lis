@@ -15,10 +15,14 @@
            (defroutes decls-routes
              (GET "/" [] (decls/query))
              (POST "/" {body :body} (decls/create body))))
-
+  
   (context "/regions" [] 
            (defroutes regions-routes
              (GET "/" [] (regions/query))))
+
+  (context "/tax-object" []
+           (defroutes tax-object-routes
+             (GET "/" [] (decls/get-tax-object))))
   )
   
 

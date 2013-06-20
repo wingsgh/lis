@@ -12,7 +12,7 @@
 var decl = angular.module('decl',['ngResource']);
 
 decl.factory('Decl', function($resource){
-    var Decl = $resource('http://localhost\\:8000/decls/:id',{},
+    var Decl = $resource('http://localhost/decls/:id',{},
                          {"save"  : {method:"POST",isArray: true},
                           "get" : {method:"GET",isArray: true},
                           "update" : {method:"PUT"},
@@ -33,7 +33,7 @@ decl.controller('ListCtrl', function($scope, Decl){
 });
 decl.controller('CreateCtrl',function($scope,$location,Decl,$http){
 
-    $http.get('http://localhost:8000/regions')
+    $http.get('http://localhost/regions')
 	.success(function(res) {
 	    $scope.regions = res;
 	});
