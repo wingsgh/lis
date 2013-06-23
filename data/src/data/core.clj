@@ -27,5 +27,5 @@
          {:class "印花税" :object "建安合同" :rate 0.0003}
          {:class "资源税" :object "石灰石" :rate 0.002},
          {:class "个人所得税" :object "经营所得" :rate 0.02},
-         {:class "企业所得税" :object "经营所得" :rate 0.25 :taxed-rate 0.08}
+         {:class "企业所得税" :object "经营所得" :rate 0.25 :taxable-rate 0.08}
 ]})
