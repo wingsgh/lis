@@ -8,9 +8,7 @@
             [lis.controllers.regions :as regions]))
 
 (defroutes app-routes
-  ;; (context "/decls" []
-  ;;          (defroutes regions-routes
-  ;;            (GET "/" [] (regions/query))))
+
   (context "/decls" [] 
            (defroutes decls-routes
              (GET "/" [] (decls/query))
@@ -20,9 +18,9 @@
            (defroutes regions-routes
              (GET "/" [] (regions/query))))
 
-  (context "/tax-object" []
+  (context "/tax-objects" []
            (defroutes tax-object-routes
-             (GET "/" [] (decls/get-tax-object))))
+             (GET "/" [] (decls/get-tax-objects))))
   )
   
 

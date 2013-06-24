@@ -1,49 +1,28 @@
 (ns lis.controllers.decls
-  (:require [lis.db.common :as db]))
+  (:require [lis.db.common :as db]
+            [lis.controllers.taxes :as taxes]))
 
-(defn- get-rate-doc [] (db/query "rate"))
-
-(defn- income-tax-filter [doc]
-  (fn [rate-doc]
-    (or 
-     (and 
-      (not= (:class rate-doc) "个人所得税") 
-      (not= (:class rate-doc) "企业所得税"))
-     (= (:class rate-doc) (:income-tax-type doc)))))
-
-(defn- city-tax-filter [doc]
-  (fn [append-tax-rate]
-    (or 
-     (not= (:class append-tax-rate) "城建税")
-     (= (:subclass append-tax-rate) (:region-type doc))))) 
-
-(defn- get-rate-by-tax-object [doc]
-  (:rate 
-   (first 
-    (filter
-     #(= (:tax-object %) (:tax-object doc))
-    (get-rate-doc)))))
-
-(def doc {:tax-object "建筑业－建筑" ,
-          :income-tax-type "个人所得税",
-          :region-type "镇"})
-
-(map #(if (:append-tax %)
-        (update-in % [:append-tax]
-                   (fn [x] (filter (city-tax-filter doc) x))) %) 
-     (get-rate-by-tax-object doc))
-
-(defn get-tax-object []
-  (map #(:tax-object %) (get-rate-doc)))
-
-
+(defn get-tax-objects []
+  (map #(:tax-object %) 
+       (db/query "rate")))
 
 (defn query [] (db/query "decls"))
-(defn create [doc] (db/create "decls" doc))
+
+(defn- get-taxes-related [decl]
+  (assoc {} 
+    :tax-object (:taxObject decl)
+    :income-tax (if (> (count (:taxpayer decl)) 3)
+                  "企业所得税" 
+                  "个人所得税")
+    :region-type (let [region (:region decl)]
+                   (subs region (dec (count region))))
+    ))
 
 
-
-
-
-
+(defn create [decl]
+  (let [doc (assoc decl
+              :taxes (taxes/sum (:taxBasis decl) 
+                                (get-taxes-related decl)
+                                (db/query "rate")))]
+    (db/create "decls" decl)))
 
