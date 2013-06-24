@@ -10,19 +10,20 @@
 
 (defn- get-taxes-related [decl]
   (assoc {} 
-    :tax-object (:taxObject decl)
+    :tax-object (decl "taxObject")
     :income-tax (if (> (count (:taxpayer decl)) 3)
                   "企业所得税" 
                   "个人所得税")
-    :region-type (let [region (:region decl)]
+    :region-type (let [region (decl "region")]
                    (subs region (dec (count region))))
     ))
 
 
 (defn create [decl]
   (let [doc (assoc decl
-              :taxes (taxes/sum (:taxBasis decl) 
-                                (get-taxes-related decl)
-                                (db/query "rate")))]
-    (db/create "decls" decl)))
+              :taxes (taxes/sum (decl "taxBasis") 
+                                  (get-taxes-related decl)
+                                  (db/query "rate")))]
+    (db/create "decls" doc)))
+
 
