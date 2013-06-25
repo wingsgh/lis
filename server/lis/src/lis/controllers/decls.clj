@@ -6,7 +6,14 @@
   (map #(:tax-object %) 
        (db/query "rate")))
 
-(defn query [] (db/query "decls"))
+;; (defn query []
+;;   (let [decls (db/query "decls")]
+;;     (map #(assoc %
+;;            :taxes (taxes/round2 (:taxes %))) 
+;;          decls)))
+(defn query []
+  (db/query "decls"))
+
 
 (defn- get-taxes-related [decl]
   (assoc {} 
