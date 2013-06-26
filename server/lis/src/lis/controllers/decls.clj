@@ -2,18 +2,21 @@
   (:require [lis.db.common :as db]
             [lis.controllers.taxes :as taxes]))
 
+(defn get-status [decl]
+  (if (= (decl "occurDate") (decl "declDate")) "申报" "发生"))
+
+
+(defn delete [id]
+  (db/delete "decls" id)
+  {:status 204})
+
 (defn get-tax-objects []
   (map #(:tax-object %) 
        (db/query "rate")))
 
-;; (defn query []
-;;   (let [decls (db/query "decls")]
-;;     (map #(assoc %
-;;            :taxes (taxes/round2 (:taxes %))) 
-;;          decls)))
-(defn query []
-  (db/query "decls"))
-
+(defn query
+  ([] (db/query "decls"))
+  ([id] (db/query "decls" id)))
 
 (defn- get-taxes-related [decl]
   (assoc {} 
@@ -30,7 +33,8 @@
   (let [doc (assoc decl
               :taxes (taxes/sum (decl "taxBasis") 
                                   (get-taxes-related decl)
-                                  (db/query "rate")))]
+                                  (db/query "rate"))
+              :tstatus (get-status decl))]
     (db/create "decls" doc)))
 
 
