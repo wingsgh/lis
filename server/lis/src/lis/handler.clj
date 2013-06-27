@@ -7,8 +7,6 @@
             [lis.controllers.decls :as decls]
             [lis.controllers.regions :as regions]))
 
-(decls/query "51c948042736c67391653e35")
-
 (defroutes app-routes
 
   (context "/decls" [] 
@@ -18,7 +16,14 @@
              (context "/:id" [id] 
                       (defroutes decls-routes
                         (GET "/" [] {:body (decls/query id)})
-                        (DELETE "/" [] (decls/delete id))))))
+                        (DELETE "/" [] (decls/delete id))
+                        (PUT "/" {body :body} (decls/update id body))))))
+
+  (context "/taxes-detail" []
+           (defroutes taxes-detail-routes
+             (context "/:id" [id]
+                      (defroutes taxes-detail-routes
+                        (GET "/" [] {:body (decls/get-taxes-detail id)})))))
   
   (context "/regions" [] 
            (defroutes regions-routes
@@ -27,8 +32,8 @@
   (context "/tax-objects" []
            (defroutes tax-object-routes
              (GET "/" [] (decls/get-tax-objects))))
-  )
   
+  )
 
 (def app
   (-> 

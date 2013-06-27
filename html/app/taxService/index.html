@@ -10,14 +10,12 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="../styles/main.css">
 	
-	<link rel="stylesheet" href="bower_components/bootstrap/docs/assets/css/bootstrap.css">
-	
-
+	<link rel="stylesheet" href="../bower_components/bootstrap/docs/assets/css/bootstrap.css">
 	    
         <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
+        <script src="../bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
     </head>
     <body>
@@ -35,11 +33,26 @@
                 <a href="#" class="navbar-link"></a>
               </p>
               <ul class="nav">
-                <li class="active"><a href="#">主页</a></li>
-                <li><a href="http://localhost/taxService/index.html">纳税服务</a></li>
+                <li><a href="http://localhost/index.html">主页</a></li>
+                <li class="active"><a href="#about">纳税服务</a></li>
                 <li><a href="#contact">税源管理</a></li>
               </ul>
             </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span2">
+            <div class="well sidebar-nav">
+              <ul class="nav nav-list">
+                <li><a href="#/list">纳税申报</a></li>
+              </ul>
+            </div><!--/.well -->
+          </div><!--/span-->
+          <div class="span10 well">
+            <div ng-view></div>
           </div>
         </div>
       </div>
@@ -48,16 +61,16 @@
           <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
           <![endif]-->
 
-	<!-- <script src="bower_components/jquery/jquery.js"></script> -->
-	<!-- <script src="components/printThis/printThis.js"></script> -->
+	<script src="../bower_components/jquery/jquery.js"></script>
+	<script src="../components/printThis/printThis.js"></script>
 	
-	<!-- <script src="scripts/lis.js"></scripbt> -->
-	<!-- <script src="scripts/misc.js"></script> -->
+	<script src="../scripts/lis.js"></scripbt>
+	<script src="../scripts/misc.js"></script>
 	
-	<!-- <script src="bower_components/angularjs-bower/angular.min.js"></script> -->
-	<!-- <script src="bower_components/angularjs-bower/angular-resource.min.js"></script> -->
-	<!-- <script src="tax/taxService/decl/module.js"></script> -->
-        <!-- <script src="scripts/main.js"></script> -->
+	<script src="../bower_components/angularjs-bower/angular.min.js"></script>
+	<script src="../bower_components/angularjs-bower/angular-resource.min.js"></script>
+	<script src="decl/module.js"></script>
+        <script src="../scripts/main.js"></script>
 	
 </body>
 </html>

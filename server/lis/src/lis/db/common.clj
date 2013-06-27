@@ -38,3 +38,5 @@
 (defn delete [coll id]
   (mc/remove coll {:_id (ObjectId. id)}))
 
+(defn update [coll id doc]
+  (mc/update-by-id coll (ObjectId. id) doc))
