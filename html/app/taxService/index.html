@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="../styles/main.css">
 	
 	<link rel="stylesheet" href="../bower_components/bootstrap/docs/assets/css/bootstrap.css">
+
+	<link rel="stylesheet" href="levy/main.css">
 	    
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="../bower_components/modernizr/modernizr.js"></script>
@@ -33,8 +35,8 @@
                 <a href="#" class="navbar-link"></a>
               </p>
               <ul class="nav">
-                <li><a href="http://localhost/index.html">主页</a></li>
-                <li class="active"><a href="#about">纳税服务</a></li>
+                <li><a href="http://localhost">主页</a></li>
+                <li class="active"><a href="#">纳税服务</a></li>
                 <li><a href="#contact">税源管理</a></li>
               </ul>
             </div><!--/.nav-collapse -->
@@ -45,9 +47,10 @@
       <div class="container-fluid">
         <div class="row-fluid">
           <div class="span2">
-            <div class="well sidebar-nav">
+            <div class="well sidebar-nav" class="list-nav-bar">
               <ul class="nav nav-list">
-                <li><a href="#/list">纳税申报</a></li>
+                <li class="tax-service-nav-item"><a href="#/decl/list">纳税申报</a></li>
+		<li class="tax-service-nav-item"><a href="#/levy/main">税款征收</a></li>
               </ul>
             </div><!--/.well -->
           </div><!--/span-->
@@ -70,7 +73,7 @@
 	<script src="../bower_components/angularjs-bower/angular.min.js"></script>
 	<script src="../bower_components/angularjs-bower/angular-resource.min.js"></script>
 	<script src="decl/module.js"></script>
+	<script src="levy/module.js"></script>
         <script src="../scripts/main.js"></script>
-	
 </body>
 </html>

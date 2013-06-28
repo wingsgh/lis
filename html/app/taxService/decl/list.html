@@ -1,16 +1,8 @@
-<button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-  <i class="icon-chevron-left"></i>
-</button>
-{{currentPage+1}}/{{numberOfPages()}}
-<button ng-disabled="currentPage >= decls.length/pageSize - 1" ng-click="currentPage=currentPage+1">
-  <i class=" icon-chevron-right"></i>
-</button>
-
 <input type="text" ng-model="search" class="search-query" placeholder="搜索">
-<table class="table ">
+<table class="table">
   <thead>
   <tr>
-    <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>
+    <th><a href="#/decl/new"><i class="icon-plus-sign"></i></a></th>
     <th></th>
     <th>编号</th>
     <th>状态</th>
@@ -28,11 +20,11 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="decl in decls | filter:search | orderBy:'sn' | startFrom:currentPage*pageSize | limitTo:pageSize" >
+  <tr ng-repeat="decl in decls | filter:search | orderBy:'sn':true | startFrom:currentPage*pageSize | limitTo:pageSize" >
     <td>
-      <a href="#/edit/{{decl._id}}"><i class="icon-pencil"></i></a>
+      <a href="#/decl/edit/{{decl._id}}"><i class="icon-pencil"></i></a>
     </td>
-    <td><a href="#/print/{{decl._id}}"><i class="icon-print"></i></a></td>
+    <td><a href="#/decl/print/{{decl._id}}"><i class="icon-print"></i></a></td>
     <td>{{decl.sn}}</td>
     <td>{{decl.tstatus}}</td>
     <td>{{decl.taxpayer}}</td>
@@ -48,3 +40,26 @@
   </tr>
   </tbody>
 </table>
+<div class="center">
+  <a href="" 
+     ng-hide="currentPage == 0" 
+     ng-click="currentPage = 0">
+    <i class="icon-step-backward"></i>
+  </a>
+  <a href=""
+     ng-hide="currentPage == 0" ng-click="currentPage=currentPage-1">
+    <i class="icon-chevron-left"></i>
+  </a>
+  {{currentPage+1}}/{{numberOfPages()}}
+  <a href=""
+     ng-hide="currentPage >= decls.length/pageSize - 1"
+     ng-click="currentPage=currentPage+1">
+    <i class=" icon-chevron-right"></i>
+  </a>
+  <a href="" 
+     ng-hide="currentPage == numberOfPages() -1" 
+     ng-disabled="currentPage == 0"  
+     ng-click="currentPage = numberOfPages() - 1">
+    <i class= "icon-step-forward"></i>
+  </a>
+</div>

@@ -22,7 +22,7 @@ decl.filter('startFrom', function() {
     return function(input, start) {
         start = +start; //parse to int
         return input.slice(start);
-    }
+    };
 });
 
 decl.controller('ListCtrl', function($scope, Decl){
@@ -31,7 +31,7 @@ decl.controller('ListCtrl', function($scope, Decl){
     
     //paging
     $scope.currentPage = 0;
-    $scope.pageSize = 5;
+    $scope.pageSize = 10;
     $scope.numberOfPages = function(){
         return Math.ceil($scope.decls.length/$scope.pageSize);                
     };
@@ -54,7 +54,7 @@ decl.controller('CreateCtrl',function($scope,$location,Decl,$http,$filter){
 
     $scope.save = function(){
 	Decl.save($scope.decl,function(){
-	    $location.path('/');
+	    $location.path('/decl/list');
 	});
     };
 });
@@ -93,7 +93,7 @@ decl.controller('EditCtrl',function($scope,$location,Decl,$routeParams,$http){
 });
 
 decl.controller('PrintCtrl', function($scope,$routeParams,$location,$http,$filter){
-    $http.get('http://localhost/taxes-detail/' + $routeParams.id).success(function(taxesDetail){
+    $http.get(lis.path.service + 'taxes-detail/' + $routeParams.id).success(function(taxesDetail){
 	for (var i in taxesDetail){
 	    if(taxesDetail[i].class == "资源税"){
                 taxesDetail[i].taxBasis += "吨";
@@ -106,14 +106,14 @@ decl.controller('PrintCtrl', function($scope,$routeParams,$location,$http,$filte
         }
 	$scope.taxesDetail = taxesDetail;
 	
-	$http.get('http://localhost/decls/' + $routeParams.id).success(function(decl){
+	$http.get(lis.path.service + 'decls/' + $routeParams.id).success(function(decl){
 	    $scope.taxesBelongDate = lis.misc.getTaxesBelongDate(decl.occurDate);
 	    decl.declDate = $filter('date')(new Date(decl.declDate),'yyyy' + '年MM月dd日');
 
 	    $scope.decl = decl;
 	    
-	    $('#print').printThis({loadCSS: "tax/decl/print.css"});   
-	    $location.path('/');
+	    $('#print').printThis({loadCSS: "decl/print.css"});   
+	    $location.path('/decl/list');
 	});
     });
 });
@@ -128,10 +128,10 @@ decl.filter('startFrom', function() {
 
 decl.config(function($routeProvider,$locationProvider){
     var declPath = "decl/";
+    var root = "/decl";
     $routeProvider. 
-        when('/',    {controller: 'ListCtrl',  templateUrl: declPath + "list.html"}) .
-        when('/new', {controller: 'CreateCtrl', templateUrl: declPath +"detail.html"}).
-        when('/print/:id', {controller:'PrintCtrl',templateUrl: declPath + "print.html"}).
-	when('/edit/:id', {controller: 'EditCtrl', templateUrl: declPath + "detail.html"}) ;
-    $routeProvider.otherwise( { redirectTo: '/'});
+        when(root + '/list',    {controller: 'ListCtrl',  templateUrl: declPath + "list.html"}) .
+        when(root + '/new', {controller: 'CreateCtrl', templateUrl: declPath +"detail.html"}).
+        when(root + '/print/:id', {controller:'PrintCtrl',templateUrl: declPath + "print.html"}).
+	when(root + '/edit/:id', {controller: 'EditCtrl', templateUrl: declPath + "detail.html"}) ;
 });

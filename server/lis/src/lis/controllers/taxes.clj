@@ -26,7 +26,7 @@
         (:rate (first (filter #(= (:tax-object %) (:tax-object taxes-related)) rate))))))
 
          
-(defn query-taxes [taxable taxes-related rate]
+(defn query-taxes [taxBasis taxes-related rate]
   (let [f-rate (query-rate rate taxes-related)]
     (map #(assoc % :taxes (round2 (* (:taxBasis %) (:rate %))))
          (concat
@@ -35,20 +35,20 @@
                       (assoc x :taxBasis
                              (round2 
                               (if (:taxable-rate x)
-                                (* taxable (:taxable-rate x))
-                                taxable )))) f-rate))
+                                (* taxBasis (:taxable-rate x))
+                                taxBasis )))) f-rate))
           (filter #(not (nil? %))
                   (reduce conj
                           (map (fn [x]
                                  (let [y (:append-tax x)]
                                    (if y 
-                                     (map #(assoc % :taxBasis (round2 (* taxable (:rate x)))) y))))
+                                     (map #(assoc % :taxBasis (round2 (* taxBasis (:rate x)))) y))))
                                f-rate)))))))
 
 
-(defn sum [taxable taxes-related rate]
+(defn sum [taxBasis taxes-related rate]
   (round2 
-   (reduce + (map #(:taxes %) (query-taxes taxable taxes-related rate)))))
+   (reduce + (map #(:taxes %) (query-taxes taxBasis taxes-related rate)))))
 
 
 

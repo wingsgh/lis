@@ -1,0 +1,13 @@
+/**/
+
+#decl-container {
+    margin-top:20px;
+}
+
+#decl-container .my-label {
+    width:33%;
+}
+
+#decl-container table {
+    background-color:#fff;
+}
