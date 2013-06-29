@@ -1,7 +1,7 @@
 var decl = angular.module('decl',['ngResource']);
 
 decl.factory('Decl', function($resource){
-    var Decl = $resource(lis.path.service + 'decls/:id',{},
+    var Decl = $resource(lis.path.service + 'decl/:id',{},
                          {"save"  : {method:"POST"},
                           "get" : {method:"GET"},
                           "update" : {method:"PUT"},
@@ -25,7 +25,7 @@ decl.filter('startFrom', function() {
     };
 });
 
-decl.controller('ListCtrl', function($scope, Decl){
+decl.controller('DeclListCtrl', function($scope, Decl){
 
     $scope.decls = Decl.query();
     
@@ -36,7 +36,7 @@ decl.controller('ListCtrl', function($scope, Decl){
         return Math.ceil($scope.decls.length/$scope.pageSize);                
     };
 });
-decl.controller('CreateCtrl',function($scope,$location,Decl,$http,$filter){
+decl.controller('DeclCreateCtrl',function($scope,$location,Decl,$http,$filter){
 
     $http.get(lis.path.service + 'tax-objects').success(function(res) {
 	$scope.taxObjects = res;
@@ -60,7 +60,7 @@ decl.controller('CreateCtrl',function($scope,$location,Decl,$http,$filter){
 });
 
 
-decl.controller('EditCtrl',function($scope,$location,Decl,$routeParams,$http){
+decl.controller('DeclEditCtrl',function($scope,$location,Decl,$routeParams,$http){
     
     $http.get(lis.path.service + 'tax-objects').success(function(res) {
 	$scope.taxObjects = res;
@@ -81,18 +81,18 @@ decl.controller('EditCtrl',function($scope,$location,Decl,$routeParams,$http){
 
     $scope.destroy = function() {
         self.original.destroy(function() {
-            $location.path('/list');
+            $location.path('/decl/list');
         });
     };
 
     $scope.save = function() {
         $scope.decl.update(function() {
-            $location.path('/');
+            $location.path('/decl/list');
         });
     };
 });
 
-decl.controller('PrintCtrl', function($scope,$routeParams,$location,$http,$filter){
+decl.controller('DeclPrintCtrl', function($scope,$routeParams,$location,$http,$filter){
     $http.get(lis.path.service + 'taxes-detail/' + $routeParams.id).success(function(taxesDetail){
 	for (var i in taxesDetail){
 	    if(taxesDetail[i].class == "资源税"){
@@ -118,20 +118,13 @@ decl.controller('PrintCtrl', function($scope,$routeParams,$location,$http,$filte
     });
 });
 
-// filter
-decl.filter('startFrom', function() {
-    return function(input, start) {
-        start = +start; 
-        return input.slice(start);
-    }
-});
 
 decl.config(function($routeProvider,$locationProvider){
     var declPath = "decl/";
     var root = "/decl";
     $routeProvider. 
-        when(root + '/list',    {controller: 'ListCtrl',  templateUrl: declPath + "list.html"}) .
-        when(root + '/new', {controller: 'CreateCtrl', templateUrl: declPath +"detail.html"}).
-        when(root + '/print/:id', {controller:'PrintCtrl',templateUrl: declPath + "print.html"}).
-	when(root + '/edit/:id', {controller: 'EditCtrl', templateUrl: declPath + "detail.html"}) ;
+        when(root + '/list',    {controller: 'DeclListCtrl',  templateUrl: declPath + "list.html"}) .
+        when(root + '/new', {controller: 'DeclCreateCtrl', templateUrl: declPath +"detail.html"}).
+        when(root + '/print/:id', {controller:'DeclPrintCtrl',templateUrl: declPath + "print.html"}).
+	when(root + '/edit/:id', {controller: 'DeclEditCtrl', templateUrl: declPath + "detail.html"}) ;
 });

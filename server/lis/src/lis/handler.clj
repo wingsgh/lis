@@ -5,27 +5,27 @@
   (:require [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
             [compojure.route :as route]
-            [lis.controllers.decls :as decls]
+            [lis.controllers.decl :as decl]
             [lis.controllers.regions :as regions]
             [lis.controllers.levy :as levy]))
 
 (defroutes app-routes
 
-  (context "/decls" [] 
-           (defroutes decls-routes
-             (GET "/" [] (decls/query))
-             (POST "/" {body :body} (decls/create (keywordize-keys body)))
+  (context "/decl" [] 
+           (defroutes decl-routes
+             (GET "/" [] (decl/query))
+             (POST "/" {body :body} (decl/create (keywordize-keys body)))
              (context "/:id" [id] 
-                      (defroutes decls-routes
-                        (GET "/" [] {:body (decls/query id)})
-                        (DELETE "/" [] (decls/delete id))
-                        (PUT "/" {body :body} (decls/update id (keywordize-keys  body)))))))
+                      (defroutes decl-routes
+                        (GET "/" [] {:body (decl/query id)})
+                        (DELETE "/" [] (decl/delete id))
+                        (PUT "/" {body :body} (decl/update id (keywordize-keys  body)))))))
 
   (context "/taxes-detail" []
            (defroutes taxes-detail-routes
              (context "/:id" [id]
                       (defroutes taxes-detail-routes
-                        (GET "/" [] {:body (decls/get-taxes-detail id)})))))
+                        (GET "/" [] {:body (decl/get-taxes-detail-by-id id)})))))
   
   (context "/regions" [] 
            (defroutes regions-routes
@@ -33,12 +33,23 @@
 
   (context "/tax-objects" []
            (defroutes tax-object-routes
-             (GET "/" [] (decls/get-tax-objects))))
+             (GET "/" [] (decl/get-tax-objects))))
 
-  (context "/levy" []
+   (context "/levy" [] 
            (defroutes levy-routes
              (GET "/" [] (levy/query))
-             (POST "/" {body :body} (levy/create (keywordize-keys body)))))
+             (POST "/" {body :body} (levy/create (keywordize-keys body)))
+             (context "/search" []
+                      (defroutes levy-routes
+                        (context "/:sn" [sn]
+                                 (defroutes levy-routes
+                                   (GET "/" [] {:body (levy/query-by-sn sn)})))))
+
+             (context "/:id" [id] 
+                      (defroutes decl-routes
+                        (GET "/" [] {:body (levy/query id)})
+                        (DELETE "/" [] (levy/delete id))
+                        (PUT "/" {body :body} (levy/update id (keywordize-keys  body)))))))
   )
 
 (def app
