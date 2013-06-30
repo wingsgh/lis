@@ -1,0 +1,52 @@
+<div>
+  <input type="text" id="levy-query" class="search-query" 
+	 placeholder=" 请输入纳税申报表编号"
+	 ng-model="levy.sn"
+	 ng-change="change()" />
+</div>
+
+<div class="row-fluid" id="decl-container">
+
+  <div class="span5">
+    <table class="table table-bordered">
+      <tr><td class="my-label">纳税人</td><td>{{levy.taxpayer}}</td></tr>
+      <tr><td>联系方式</td><td></td></tr>
+      <tr><td>备注</td><td>{{levy.description}}</td></tr>
+    </table>
+
+    <form name="new-levy" class="form-horizontal">
+      <div class="control-group">
+	<label class="control-label" style="width:120px;text-align:left;">税票号码</label>
+	<div class="controls" style="margin-left:0px;" >
+	  <input type="text" ng-model="levy.taxReceiptNo" />
+	</div>
+      </div>
+
+      <div class="control-group">
+	<label class="control-label"  style="width:120px;text-align:left;">纳税日期</label>
+	<div class="controls" style="margin-left:0px;">
+	  <input type="text"  ng-model="levy.payDate" />
+	</div>
+      </div>
+
+      <br>
+      <div class="control-group">
+	<div class="controls">
+	  <a href="#/" class="btn">取消</a>
+	  <button ng-click="save()" ng-disabled="isClean()"
+		  class="btn btn-primary">保存</button>
+	  <button ng-click="destroy()" ng-show="levy._id" class="btn btn-danger">删除</button>
+	</div>
+      </div>
+    </form>
+    
+  </div>
+
+  <div class="span7">
+    taxes-detail
+  </div>
+
+</div>
+
+
+

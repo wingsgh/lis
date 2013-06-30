@@ -92,29 +92,42 @@ decl.controller('DeclEditCtrl',function($scope,$location,Decl,$routeParams,$http
     };
 });
 
-decl.controller('DeclPrintCtrl', function($scope,$routeParams,$location,$http,$filter){
-    $http.get(lis.path.service + 'taxes-detail/' + $routeParams.id).success(function(taxesDetail){
+decl.controller('DeclPrintCtrl', function($scope,$routeParams,$location,$filter,Decl){
+    //     $http.get(lis.path.service + 'taxes-detail/' + $routeParams.id).success(function(taxesDetail){
+
+    // 	$scope.taxesDetail = taxesDetail;
+	
+    // 	$http.get(lis.path.service + 'decls/' + $routeParams.id).success(function(decl){
+  
+
+    // 	    $scope.decl = decl;
+	    
+
+    // 	});
+    // });
+    var self = this;   
+    Decl.get({id: $routeParams.id}, function(decl) {
+        self.original = decl;
+        $scope.decl = new Decl(self.original);
+	
+	var taxesDetail = $scope.decl.taxesDetail;
+	
 	for (var i in taxesDetail){
-	    if(taxesDetail[i].class == "资源税"){
+    	    if(taxesDetail[i].taxClass == "资源税"){
                 taxesDetail[i].taxBasis += "吨";
                 taxesDetail[i].rate = "1元/吨";
-	    }
-	    else {
+    	    }
+    	    else {
                 taxesDetail[i].taxBasis += "元";
                 taxesDetail[i].rate = 100 * taxesDetail[i].rate + "%";
-	    }
+    	    }
         }
-	$scope.taxesDetail = taxesDetail;
-	
-	$http.get(lis.path.service + 'decls/' + $routeParams.id).success(function(decl){
-	    $scope.taxesBelongDate = lis.misc.getTaxesBelongDate(decl.occurDate);
-	    decl.declDate = $filter('date')(new Date(decl.declDate),'yyyy' + '年MM月dd日');
 
-	    $scope.decl = decl;
-	    
-	    $('#print').printThis({loadCSS: "decl/print.css"});   
-	    $location.path('/decl/list');
-	});
+	$scope.taxesBelongDate = lis.misc.getTaxesBelongDate($scope.decl.occurDate);
+    	$scope.decl.declDate = $filter('date')(new Date(decl.declDate),'yyyy' + '年MM月dd日');
+	
+	$('#print').printThis({loadCSS: "decl/print.css"});   
+    	$location.path('/decl/list');
     });
 });
 

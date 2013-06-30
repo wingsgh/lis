@@ -1,0 +1,53 @@
+<input type="text" ng-model="search" class="search-query" placeholder="搜索">
+<table class="table">
+  <thead>
+  <tr>
+    <th><a href="#/levy/new"><i class="icon-plus"></i></a></th>
+    <th>编号</th>
+    <th>纳税人</th>
+    <th>应税项目</th>
+    <th>计税依据</th>
+    <th>应纳税额</th>
+    <th>纳税日期</th>
+    <th>税票号码</th>    
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="levy in levyes | filter:search | orderBy:'sn':true | startFrom:currentPage*pageSize | limitTo:pageSize" >
+    <td>
+      <a href="#/levy/edit/{{levy._id}}"><i class="icon-pencil"></i></a>
+    </td>
+    <td>{{levy.sn}}</td>
+    <td>{{levy.taxpayer}}</td>
+    <td>{{levy.taxObject}}</td>
+    <td>{{levy.taxBasis}}</td>
+    <td>{{levy.taxes}}</td>
+    <!-- <td>{{levy.occurDate | date:'yyyy-MM-dd'}}</td> -->
+    <td>{{levy.levyDate | date:'yyyy-MM-dd'}}</td>
+    <!-- <td>{{levy.description}}</td> -->
+    <td>{{levy.taxReceiptNo}}</td>
+  </tr>
+  </tbody>
+</table>
+<div class="center">
+  <a href="" 
+     ng-hide="currentPage <= 0" 
+     ng-click="currentPage = 0">
+    <i class="icon-step-backward"></i>
+  </a>
+  <a href=""
+     ng-hide="currentPage <= 0" ng-click="currentPage=currentPage-1">
+    <i class="icon-chevron-left"></i>
+  </a>
+  {{currentPage+1}}/{{numberOfPages()}}
+  <a href=""
+     ng-hide="currentPage >= levyes.length/pageSize - 1"
+     ng-click="currentPage=currentPage+1">
+    <i class=" icon-chevron-right"></i>
+  </a>
+  <a href="" 
+     ng-hide="currentPage >= numberOfPages() -1" 
+     ng-click="currentPage = numberOfPages() - 1">
+    <i class= "icon-step-forward"></i>
+  </a>
+</div>

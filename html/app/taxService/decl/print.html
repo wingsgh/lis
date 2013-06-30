@@ -1,5 +1,5 @@
 <div id="print">
-  <div style="text-align:right;">编号:{{decl.sn}}</div>
+  <div style="text-align:right;">编号:{{decl._id}}</div>
   <div>
     <h1 style="text-align:center;">纳税申报表</h1>
   </div>
@@ -13,8 +13,8 @@
   </table>
   <table>
     <tr><th>税种</th><th>应税项目</th><th>计税依据</th><th>税率/征收率</th><th>应纳税额(元)</th></tr>
-    <tr ng-repeat="item in taxesDetail">
-      <td>{{item.class}}</td>
+    <tr ng-repeat="item in decl.taxesDetail">
+      <td>{{item.taxClass}}</td>
       <td>{{item.object}}</td>
       <td>{{item.taxBasis}}</td>
       <td>{{item.rate}}</td>
