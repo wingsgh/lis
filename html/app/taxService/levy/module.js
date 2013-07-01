@@ -31,15 +31,13 @@ levy.controller('LevyListCtrl',function($scope,Levy){
 
 levy.controller('LevyCreateCtrl',function($scope,$location,$filter,Levy,$http){
     
-    var levy = {};
-
-    levy.payDate  = $filter('date')(new Date(),'yyyy-MM-dd');
-    $scope.levy = levy;
-    
     $scope.change = function(){
-	$http.get('http://localhost/service/levy/search/' + $scope.levy.sn)
-	    .success(function(levy){
-		$scope.levy = levy;
+	$http.get('http://localhost/service/decl/' + $scope.id)
+	    .success(function(data){
+
+		data.payDate  = $filter('date')(new Date(),'yyyy-MM-dd');
+
+		$scope.levy = data;
 	    });
     };
     
@@ -48,6 +46,28 @@ levy.controller('LevyCreateCtrl',function($scope,$location,$filter,Levy,$http){
 	    $location.path('/levy/list');
 	});
     };
+});
+
+levy.controller('LevyEditCtrl',function($scope,$location,$routeParams,Levy){
+    var self = this;   
+    Levy.get({id: $routeParams.id}, function(levy) {
+        self.original = levy;
+        $scope.levy = new Levy(self.original);
+	$scope.id = $scope.levy._id;
+    });
+
+
+
+    $scope.isClean = function() {
+        return angular.equals(self.original, $scope.levy);
+    };
+
+    $scope.save = function() {
+        $scope.levy.update(function() {
+            $location.path('/levy/list');
+        });
+    };
+    
 });
 
 levy.filter('startFrom', function() {
@@ -62,8 +82,6 @@ levy.config(function($routeProvider,$locationProvider){
     var root ="/levy";
     $routeProvider. 
         when(root + '/list', {controller: 'LevyListCtrl',  templateUrl: levyPath + "list.html"}).
-        when(root + '/new', {controller: 'LevyCreateCtrl', templateUrl: levyPath +"detail.html"})
-        // when('/print/:id', {controller:'PrintCtrl',templateUrl: declPath + "print.html"}).
-	// when('/edit/:id', {controller: 'EditCtrl', templateUrl: declPath + "detail.html"})
-    ;
+        when(root + '/new', {controller: 'LevyCreateCtrl', templateUrl: levyPath +"detail.html"}).
+      	when(root + '/edit/:id', {controller: 'LevyEditCtrl', templateUrl: levyPath + "detail.html"});
 });

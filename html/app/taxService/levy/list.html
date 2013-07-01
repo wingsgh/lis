@@ -17,13 +17,13 @@
     <td>
       <a href="#/levy/edit/{{levy._id}}"><i class="icon-pencil"></i></a>
     </td>
-    <td>{{levy.sn}}</td>
+    <td>{{levy._id}}</td>
     <td>{{levy.taxpayer}}</td>
     <td>{{levy.taxObject}}</td>
     <td>{{levy.taxBasis}}</td>
     <td>{{levy.taxes}}</td>
     <!-- <td>{{levy.occurDate | date:'yyyy-MM-dd'}}</td> -->
-    <td>{{levy.levyDate | date:'yyyy-MM-dd'}}</td>
+    <td>{{levy.payDate | date:'yyyy-MM-dd'}}</td>
     <!-- <td>{{levy.description}}</td> -->
     <td>{{levy.taxReceiptNo}}</td>
   </tr>

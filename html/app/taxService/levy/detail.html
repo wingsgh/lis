@@ -1,11 +1,11 @@
 <div>
   <input type="text" id="levy-query" class="search-query" 
 	 placeholder=" 请输入纳税申报表编号"
-	 ng-model="levy.sn"
+	 ng-model="id"
 	 ng-change="change()" />
 </div>
 
-<div class="row-fluid" id="decl-container">
+<div class="row-fluid" id="levy-container">
 
   <div class="span5">
     <table class="table table-bordered">
@@ -14,7 +14,7 @@
       <tr><td>备注</td><td>{{levy.description}}</td></tr>
     </table>
 
-    <form name="new-levy" class="form-horizontal">
+    <form name="new-levy" class="form-horizontal form-bordered">
       <div class="control-group">
 	<label class="control-label" style="width:120px;text-align:left;">税票号码</label>
 	<div class="controls" style="margin-left:0px;" >
@@ -35,7 +35,6 @@
 	  <a href="#/" class="btn">取消</a>
 	  <button ng-click="save()" ng-disabled="isClean()"
 		  class="btn btn-primary">保存</button>
-	  <button ng-click="destroy()" ng-show="levy._id" class="btn btn-danger">删除</button>
 	</div>
       </div>
     </form>
@@ -43,7 +42,18 @@
   </div>
 
   <div class="span7">
-    taxes-detail
+    <table class="table table-bordered">
+      <tr><th>税种</th><th>应税项目</th><th>计税依据</th><th>税率/征收率</th><th>应纳税额(元)</th></tr>
+      <tr ng-repeat="item in levy.taxesDetail">
+	<td>{{item.taxClass}}</td>
+	<td>{{item.object}}</td>
+	<td>{{item.taxBasis}}</td>
+	<td>{{item.rate}}</td>
+	<td>{{item.taxes}}</td>
+      </tr>
+      <tr><td>合计</td><td></td><td></td><td></td><td>{{levy.taxes}}</td>
+      </tr>
+    </table>
   </div>
 
 </div>
