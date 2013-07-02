@@ -8,7 +8,7 @@
             [lis.controller.regions  :as regions]
             [lis.controller.taxes    :as taxes]
             [lis.controller.levy     :as levy]
-            [lis.controller.taxSource :as tax-source]
+            [lis.controller.tax-source :as tax-source]
             ))
 
 (defroutes app-routes
@@ -31,24 +31,50 @@
            (defroutes tax-object-routes
              (GET "/" [] (taxes/get-tax-objects))))
   
-  (context "/tax-source" []
-           (defroutes tax-source-routes
-             (GET "/" [] (tax-source/query))
-             (context "/:id" [id]
-                      (defroutes tax-source-routes
-                        (GET "/" [] {:body (tax-source/query (Long. id))})
-                        (DELETE "/" [] (tax-source/delete (Long. id)))
-                        (PUT "/" {body :body} (tax-source/update (Long. id) (keywordize-keys body)))))
-             (context "/tax-source" []
-                      (defroutes  tax-source-routes
-                        (GET "/" [] (tax-source/query))))))
+  (context
+   "/tax-source" []
+   (defroutes tax-source-routes
 
+     (context 
+      "/tax-object" [] 
+      (defroutes tax-source-routes
+        (context 
+         "/:taxObject" [taxObject]
+         (defroutes tax-source-routes
+           (GET "/" [] 
+                (map #(select-keys % [:_id :name]) (tax-source/query {:taxObject taxObject}) ))))))
+
+             (context 
+              "/building" 
+              []
+              (defroutes
+                tax-source-routes
+                (GET "/"
+                     []
+                     (tax-source/query {:industry "建筑业"}))
+                (POST "/" 
+                      {body :body} 
+                      (tax-source/create 
+                       (assoc (keywordize-keys body) 
+                         :industry "建筑业")))
+                (context 
+                 "/:id" [id]
+                 (defroutes tax-source-routes
+                   (PUT "/"
+                        {body :body}
+                        (tax-source/update (Long. id) (keywordize-keys body)))
+                   (DELETE "/" []
+                           (tax-source/delete (Long. id)))
+                   
+                   (GET "/" []
+                        {:body (first (seq (tax-source/query
+                                            {:industry "建筑业" :_id (Long. id)})))})))))))
    (context "/levy" [] 
            (defroutes levy-routes
              (GET "/" [] (levy/query))
              (POST "/" {body :body} (levy/create (keywordize-keys body)))
              (context "/:id" [id] 
-                      (defroutes decl-routes
+                      (defroutes levy-routes
                         (GET "/" [] {:body (levy/query (Long. id))})
                         (PUT "/" {body :body} (levy/update (Long. id)
            (keywordize-keys body)))))))

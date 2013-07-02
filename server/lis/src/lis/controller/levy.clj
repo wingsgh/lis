@@ -4,7 +4,7 @@
 (defn create [doc]
   (module/update "decls" (:_id doc)
                  (assoc 
-                     (merge (module/query "decls" (:_id doc)) doc)
+                     (merge (module/query "decls" (Long. (str(:_id doc)))) doc)
                    :taxStatus "完税"))
   {:status 204})
 

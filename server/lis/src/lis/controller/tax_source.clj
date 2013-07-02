@@ -1,12 +1,12 @@
-(ns lis.controller.taxSource
+(ns lis.controller.tax-source
   (:require [lis.module.mongo :as module]))
 
 (defn query
   ([] (module/query "taxSource"))
-  ([id] (module/query "taxSource" id)))
+  ([condition] (module/query "taxSource" condition)))
 
-(defn create [building]
-  (module/insert "taxSource" (assoc building :industry "建筑业")))
+(defn create [doc]
+  (module/insert "taxSource" doc))
 
 (defn delete [id]
   (module/delete "taxSource" id)
@@ -15,6 +15,3 @@
 (defn update [id doc]
   (module/update "taxSource" id doc)
   {:status 204})
-
-
-(query)

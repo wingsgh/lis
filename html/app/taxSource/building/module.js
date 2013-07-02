@@ -1,7 +1,7 @@
 var building = angular.module('building',['ngResource']);
 
 building.factory('Building', function($resource){
-    var Building = $resource(lis.path.service + 'building/:id',{},
+    var Building = $resource(lis.path.service + 'tax-source/building/:id',{},
                          {"save"  : {method:"POST"},
                           "get" : {method:"GET"},
                           "update" : {method:"PUT"},

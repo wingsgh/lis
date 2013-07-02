@@ -40,6 +40,8 @@ decl.controller('DeclCreateCtrl',function($scope,$location,Decl,$http,$filter){
 	$scope.regions = res;
     });
     
+    
+
     //set default values
     var decl = {};
     var today = new Date();
@@ -47,9 +49,26 @@ decl.controller('DeclCreateCtrl',function($scope,$location,Decl,$http,$filter){
     decl.occurDate = decl.declDate = $filter('date')(today,'yyyy-MM-dd');
     $scope.decl = decl;
 
+    $scope.decl.taxSource = null;
+    $scope.initTaxSource = function(){
+    	$http.get(lis.path.service + 'tax-source/tax-object/' + $scope.decl.taxObject)
+    	    .success(function(taxSource){
+    		$scope.taxSources = taxSource;
+    	    });
+    };
+
+    $(function() {
+    	$( "#combobox" ).combobox();
+    	$( "#toggle" ).click(function() {
+    	    $( "#combobox" ).toggle();
+    	});
+    });
 
     $scope.save = function(){
+	$scope.decl.taxSource = $('#combobox').val();
+
 	Decl.save($scope.decl,function(){
+	   
 	    $location.path('/decl/list');
 	});
     };
@@ -65,10 +84,28 @@ decl.controller('DeclEditCtrl',function($scope,$location,Decl,$routeParams,$http
 	$scope.regions = res;
     });
 
+   
+
     var self = this;   
     Decl.get({id: $routeParams.id}, function(decl) {
         self.original = decl;
         $scope.decl = new Decl(self.original);
+	
+
+    	$http.get(lis.path.service + 'tax-source/tax-object/' + $scope.decl.taxObject)
+    	    .success(function(taxSource){
+    		$scope.taxSources = taxSource;
+    	    });
+	$(function() {
+    	    $( "#combobox" ).combobox();
+    	    $( "#toggle" ).click(function() {
+    		$( "#combobox" ).toggle();
+    	    });
+	    
+	    $('#combobox').combobox('autocomplete', decl.taxSource, decl.taxSource); 
+	});
+	
+
     });
 
     $scope.isClean = function() {
@@ -82,6 +119,7 @@ decl.controller('DeclEditCtrl',function($scope,$location,Decl,$routeParams,$http
     };
 
     $scope.save = function() {
+	$scope.decl.taxSource = $('#combobox').val();
         $scope.decl.update(function() {
             $location.path('/decl/list');
         });
