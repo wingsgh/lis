@@ -1,4 +1,4 @@
-var decl = angular.module('decl',['ngResource']);
+var decl = angular.module('decl',['ngResource','CommonModule']);
 
 decl.factory('Decl', function($resource){
     var Decl = $resource(lis.path.service + 'decl/:id',{},
@@ -18,12 +18,7 @@ decl.factory('Decl', function($resource){
 });
 
 
-decl.filter('startFrom', function() {
-    return function(input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
-    };
-});
+
 
 decl.controller('DeclListCtrl', function($scope, Decl){
 
@@ -51,6 +46,7 @@ decl.controller('DeclCreateCtrl',function($scope,$location,Decl,$http,$filter){
 
     decl.occurDate = decl.declDate = $filter('date')(today,'yyyy-MM-dd');
     $scope.decl = decl;
+
 
     $scope.save = function(){
 	Decl.save($scope.decl,function(){
@@ -130,6 +126,7 @@ decl.controller('DeclPrintCtrl', function($scope,$routeParams,$location,$filter,
     	$location.path('/decl/list');
     });
 });
+
 
 
 decl.config(function($routeProvider,$locationProvider){

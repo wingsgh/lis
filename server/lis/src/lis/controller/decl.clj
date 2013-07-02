@@ -23,3 +23,5 @@
                    :taxes (taxes/sum doc)
                    :taxesDetail (taxes/get-taxes-detail doc)))
   (module/query "decls" id))
+
+

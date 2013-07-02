@@ -1,0 +1,40 @@
+<input type="text" ng-model="search" class="search-query" placeholder="搜索">
+<table class="table">
+  <thead>
+  <tr>
+    <th><a href="#/building/new"><i class="icon-plus-sign"></i></a></th>
+    <th>编号</th>
+    <th>名称 </th>
+    <th>建设单位</th>
+    <th>承建单位</th>
+    
+    <!-- <th>应税项目</th> -->
+    <th>地址</th>
+    <th>开工日期</th>
+    <th>预算金额</th>
+    <th>峻工日期</th>
+    <th>决算金额</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="building in buildings | filter:search | orderBy:'sn'">
+    <td>
+      <a href="#/building/edit/{{building._id}}"><i class="icon-pencil"></i></a>
+    </td>
+    <td>{{building._id}}</td>
+    <td>{{building.name}}</td>
+    <td>{{building.owner}}</td>
+    <td>{{building.contractor}}</td>
+
+    <!-- <td>{{building.taxObject}}</td> -->
+    <td>{{building.region}}</td>
+
+    <td>{{building.startDate}}</td>
+    <td>{{building.budget}}</td>
+
+    <td>{{building.finishDate}}</td>
+    <td>{{building.account}}</td>
+  </tr>
+  </tbody>
+</table>
+

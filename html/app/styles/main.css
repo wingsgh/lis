@@ -9,3 +9,15 @@ body {
 .center {
     text-align:center;
 }
+
+.detail-form .control-label {
+    width:80px;
+}
+
+.detail-form .controls {
+    margin-left:100px;
+}
+
+.bg-white {
+    background-color:#fff;
+}

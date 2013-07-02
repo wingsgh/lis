@@ -13,7 +13,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="levy in levyes | filter:search | orderBy:'sn':true | startFrom:currentPage*pageSize | limitTo:pageSize" >
+  <tr ng-repeat="levy in levyes | filter:search | orderBy:'_id':true | startFrom:currentPage*pageSize | limitTo:pageSize" >
     <td>
       <a href="#/levy/edit/{{levy._id}}"><i class="icon-pencil"></i></a>
     </td>
